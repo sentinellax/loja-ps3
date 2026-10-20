@@ -1,6 +1,7 @@
 #include "pkgi_ui_modern.h"
 #include "pkgi_store_bin.h"
 #include "pkgi_covers.h"
+#include "pkgi_db.h"
 #include "pkgi_download.h"
 #include "pkgi.h"
 #include <stdio.h>
@@ -454,11 +455,15 @@ void ui_modern_update(uint32_t buttons_down, uint32_t buttons_pressed)
         if (buttons_pressed & PKGI_BUTTON_X) {
             const StoreRecord* rec = store_bin_get_record(g_detail_record_index);
             if (rec) {
-                const char* url = store_bin_get_string(rec->url_offset);
-                const char* name = store_bin_get_string(rec->name_offset);
-                const char* rap = store_bin_get_string(rec->rap_offset);
-                // Call standard pkgi download queue!
-                pkgi_download_start(name, url, (const uint8_t*)rap, NULL);
+                DbItem dl_item;
+                memset(&dl_item, 0, sizeof(dl_item));
+                dl_item.name = store_bin_get_string(rec->name_offset);
+                dl_item.url = store_bin_get_string(rec->url_offset);
+                dl_item.content = store_bin_get_string(rec->cid_offset);
+                const char* rap_str = store_bin_get_string(rec->rap_offset);
+                dl_item.rap = (const uint8_t*)rap_str;
+                dl_item.size = rec->file_size;
+                pkgi_download(&dl_item, 0);
             }
         }
     }

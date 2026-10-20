@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdint.h>
-#include "pkgi_style.h"
+#include "pkgi.h"
 
 typedef enum {
     VIEW_HOME = 0,

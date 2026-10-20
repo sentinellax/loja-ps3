@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdint.h>
-#include "pkgi_style.h"
+#include "pkgi.h"
 
 #define COVERS_CACHE_SIZE 24
 
