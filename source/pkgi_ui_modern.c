@@ -386,13 +386,13 @@ void ui_modern_render(void)
 void ui_modern_update(uint32_t buttons_down, uint32_t buttons_pressed)
 {
     // L1 / R1: Change Tabs
-    if (buttons_pressed & PKGI_BUTTON_L1) {
+    if (buttons_pressed & PKGI_BUTTON_LT) {
         if (g_current_tab > 0) {
             g_current_tab--;
             g_current_view = (g_current_tab == TAB_HOME) ? VIEW_HOME : VIEW_CATALOG;
             refresh_filter();
         }
-    } else if (buttons_pressed & PKGI_BUTTON_R1) {
+    } else if (buttons_pressed & PKGI_BUTTON_RT) {
         if (g_current_tab < TAB_COUNT - 1) {
             g_current_tab++;
             g_current_view = (g_current_tab == TAB_HOME) ? VIEW_HOME : VIEW_CATALOG;
@@ -430,14 +430,14 @@ void ui_modern_update(uint32_t buttons_down, uint32_t buttons_pressed)
         }
 
         // Cross (X) / Square ([]): Open Details
-        if ((buttons_pressed & PKGI_BUTTON_X) || (buttons_pressed & PKGI_BUTTON_SQUARE)) {
+        if ((buttons_pressed & PKGI_BUTTON_X) || (buttons_pressed & PKGI_BUTTON_S)) {
             if (g_filtered_count > 0) {
                 ui_modern_open_details(g_filtered_indices[g_selected_index]);
             }
         }
 
         // Triangle (/\): Toggle view between Home and Catalog
-        if (buttons_pressed & PKGI_BUTTON_TRIANGLE) {
+        if (buttons_pressed & PKGI_BUTTON_T) {
             g_current_view = (g_current_view == VIEW_HOME) ? VIEW_CATALOG : VIEW_HOME;
         }
 
